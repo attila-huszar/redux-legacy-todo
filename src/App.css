@@ -1,0 +1,23 @@
+.app {
+  width: 25rem;
+}
+
+input {
+  padding: 0.5em 1em;
+  border: 1px solid #1a1a1a;
+  border-radius: 8px;
+  font-size: 1em;
+}
+
+ul {
+  padding-inline-start: 1em;
+}
+
+ul li,
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5em;
+  list-style: none;
+}
