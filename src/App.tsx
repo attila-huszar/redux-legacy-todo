@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
-import { addTodo, fetchCatPic, removeTodo, toggleTodo } from "./store/store";
+import { addTodo, fetchCatPic, removeTodo, toggleTodo } from "./store/actions";
 import "./App.css";
 
 const App = () => {
