@@ -2,6 +2,7 @@ export enum Actions {
   ADD_TODO = "ADD_TODO",
   REMOVE_TODO = "REMOVE_TODO",
   TOGGLE_TODO = "TOGGLE_TODO",
+  SET_CAT_PIC = "SET_CAT_PIC",
 }
 
 interface Todo {
@@ -12,6 +13,7 @@ interface Todo {
 
 export interface State {
   todos: Todo[];
+  catPic?: string;
 }
 
 export interface AddTodoAction {
@@ -27,6 +29,11 @@ export interface RemoveTodoAction {
 export interface ToggleTodoAction {
   type: Actions.TOGGLE_TODO;
   payload: Todo["id"];
+}
+
+export interface SetCatPicAction {
+  type: Actions.SET_CAT_PIC;
+  payload: string;
 }
 
 export type TodoAction = AddTodoAction | RemoveTodoAction | ToggleTodoAction;

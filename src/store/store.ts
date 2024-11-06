@@ -1,4 +1,5 @@
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import { thunk, ThunkAction } from "redux-thunk";
 import { nanoid } from "nanoid";
 import {
   State,
@@ -7,6 +8,7 @@ import {
   AddTodoAction,
   ToggleTodoAction,
   TodoAction,
+  SetCatPicAction,
 } from "./store.types";
 
 export const addTodo = (text: string): AddTodoAction => ({
@@ -28,7 +30,10 @@ const initialState: State = {
   todos: [],
 };
 
-const todosReducer = (state = initialState, action: TodoAction): State => {
+const todosReducer = (
+  state = initialState,
+  action: TodoAction | SetCatPicAction,
+): State => {
   switch (action.type) {
     case Actions.ADD_TODO:
       return {
@@ -49,11 +54,34 @@ const todosReducer = (state = initialState, action: TodoAction): State => {
             : todo,
         ),
       };
+    case Actions.SET_CAT_PIC:
+      return {
+        ...state,
+        catPic: action.payload,
+      };
     default:
       return state;
   }
 };
 
-export const store = createStore(todosReducer);
+export const fetchCatPic =
+  (): ThunkAction<void, RootState, unknown, SetCatPicAction> =>
+  async dispatch => {
+    try {
+      const response = await fetch(
+        "https://api.thecatapi.com/v1/images/search",
+      );
+      const data = await response.json();
+      const catImageUrl: string | undefined = data[0]?.url;
+
+      if (catImageUrl) {
+        dispatch({ type: Actions.SET_CAT_PIC, payload: catImageUrl });
+      }
+    } catch (error) {
+      console.error("Failed to fetch cat picture:", error);
+    }
+  };
+
+export const store = createStore(todosReducer, applyMiddleware(thunk));
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

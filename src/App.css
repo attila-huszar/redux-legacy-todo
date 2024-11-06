@@ -1,5 +1,16 @@
 .app {
+  display: flex;
+  gap: 5rem;
+}
+
+.todo-list {
   width: 25rem;
+}
+
+img {
+  margin-top: 2rem;
+  width: 25rem;
+  border-radius: 8px;
 }
 
 input {
